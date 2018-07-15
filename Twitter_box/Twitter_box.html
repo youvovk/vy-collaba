@@ -1,0 +1,29 @@
+<!DOCTYPE html><html>
+<head>
+	<meta charset="UTF-8" />
+ 
+    <title>Twitter box</title>
+ 
+  </head>
+  <body>
+  	
+  	<form>
+  	<textarea name="Message" class="first"></textarea>
+  	<button name="button">Тык!</button>
+  	</form>
+    <div id="divv">0</div>
+    <div style='position:absolute' class="allPostText"></div>
+  	<script id="one">
+  
+first.addEventListener("input", function(){
+  divv.textContent  = first.value.length;
+})
+var post = document.querySelector(".first")
+var allPost = allPostText
+post.addEventListener("input", function() {
+	 allPost[all.length] = post.length
+})
+  </script>
+
+  </body>
+</html>

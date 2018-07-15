@@ -1,14 +1,36 @@
-<!DOCTYPE html><html>
+<!DOCTYPE HTML>
+<html>
+
 <head>
-	<meta charset="UTF-8" />
+  <meta charset="utf-8">
+  <style type="text/css">
  
-    <title>Twitter box</title>
+  </style>
+</head>
+
+<body>
+  <div>
+    <form>
+      <textarea name="" id="first" cols="30" rows="10" placeholder="Текст"></textarea>
+      <button name="button">Click</button>
+
+      <div id="divv">0</div>
+      <div id="post"><p></p></div>
+  
+   </form>    
+  </div>
+  
+
  
-  </head>
-  <body>
-  	<form>
-  	<textarea name="Message"></textarea>
-  	<button name="button">Тык!</button>
-  	</form>
-  </body>
+
+  <script id="one">
+  
+first.addEventListener("input", function(){
+  divv.textContent  = first.value.length;
+})
+var myText = document.getElementById('first').value
+  </script>
+
+</body>
+
 </html>

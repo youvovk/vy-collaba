@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+ 
+  </style>
+</head>
+
+<body>
+  <form id="form1">
+  <div>
+        <textarea id="area1" rows="5">Yes</textarea>
+        <input type="button" value="Tweet" onclick="go()" />
+        <br />
+        <div id="div">0</div>
+    </div>
+   <div>
+    <p id="as1"></p>
+ 
+  </div>
+  </form> 
+
+ 
+
+  <script>
+  
+area1.addEventListener("input", function(){
+  div.textContent  = area1.value.length;
+})
+
+var myText = document.getElementById('first').value
+var post = document.getElementById('as1')
+var allobjPost =  [1]
+area1.addEventListener("input", function(){
+  for (var i = 0; i < /*myText*/allobjPost.length; i++) {
+      
+      post = allobjPost/*[i]*/.unshift(myText) 
+  }
+})
+  </script>
+
+</body>
+
+</html>

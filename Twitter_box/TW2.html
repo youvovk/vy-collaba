@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+    p { list-style-type: none; }
+    p { counter-reset: list -1; }
+    p:before {
+    counter-increment: list;
+    content: counter(list) ". ";
+} 
+  </style>
+</head>
+
+<body>
+  <form id="form1">
+  <div>
+        <textarea id="area1" rows="5">Yes</textarea>
+        <input type="button" value="Tweet" onclick="go()" />
+        <br />
+        <div id="div">0</div>
+    </div>
+   <div>
+    
+      <p id="as"></p>
+    
+  </div>
+  </form> 
+
+ 
+
+  <script>
+  
+area1.addEventListener("input", function(){
+  div.textContent  = area1.value.length;
+})
+function go() {
+    var c1 = document.getElementById('area1').value;
+    var d1 = document.getElementById('as');
+    d1.innerHTML = c1;
+}
+  </script>
+
+</body>
+
+</html>
