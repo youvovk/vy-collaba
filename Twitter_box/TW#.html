@@ -4,46 +4,66 @@
 <head>
   <meta charset="utf-8">
   <style type="text/css">
-   #div {
-    position: absolute;
-    right: 1460px;
-    top: 114px;
-   }
   </style>
 </head>
 
 <body>
   <form id="form1">
-  <div>
-        <textarea id="area1" rows="5">Yes</textarea>
-        <input type="button" value="Tweet" onclick="go()" />
-        <br />
-        <p>Lenght:</p>
-        <div id="div">0</div>
+    <div>
+      <textarea id="message" name="tweet" rows="5" placeholder="What do you think?"></textarea>
+      <button id="button2" type="submit" >Tweet</button>
+      <br />
+      <div id="counter">0</div>
     </div>
-   <div>
-    <p id="as1"></p> <!--це по задумці місце, де вони повинні з'являтися-->
- 
-  </div>
-  </form> 
+    <div>
+      <ul id="tweets-list"></ul>
+    
 
- 
+    </div>
+  
+  </form>
+
+
 
   <script>
-  
-area1.addEventListener("input", function(){
-  div.textContent  = area1.value.length;
-})
-//Нижче код, для завдання про твіти
-var myText = document.getElementById('first').value
-var post = document.getElementById('as1')
-var allobjPost =  []
-area1.addEventListener("input", function(){
-  for (var i = 0; i < /*myText*/allobjPost.length; i++) {
+    let form = document.querySelector('form')
+    let textarea = document.querySelector('#message')
+    let list = document.querySelector('#tweets-list')
+    let counter = document.querySelector('#counter')
+    let button = document.querySelector('#button2')
+    
+   
+    textarea.addEventListener("input", function () {
+        disabledButton(textarea.value.length)   /*вызов функции разблокировки кнопки*/
+    })
+    
+    textarea.addEventListener("input", function () {
+      updateCounter(textarea.value.length); /*счетчик*/
+    })
+
+    function disabledButton(value2) {  /*функция для блокировки/разблокировки кпнопки*/
       
-      post = allobjPost/*[i]*/.unshift(myText) 
-  }
-})
+        if ( value2 == 0 ) { 
+        button.setAttribute('Disabled', 'disabled')
+    }
+                                                     //делает блокировку кнопки и счетчик красный
+      else if ( value2 >= 270 ) {
+             
+             button.setAttribute('Disabled', 'disable')
+             counter.setAttribute('Style', 'color:#ff0000')
+      }
+      else if ( value2 < 270 ) {
+
+        button.removeAttribute('Disabled')
+         counter.removeAttribute('Style')
+          }   else if ( value2 !== 0 ) {
+        button.removeAttribute('Disabled')
+      }
+         }
+   function updateCounter(value) {
+      counter.textContent = value /*вставляет количество символов в html*/
+    }
+    
   </script>
 
 </body>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <form id="form1">
+    <div>
+      <textarea id="message" name="tweet" rows="5" placeholder="What do you think?"></textarea>
+      <button id="button2" type="submit" disabled="disabled">Tweet</button>
+      <br />
+      <div id="counter">0</div>
+    </div>
+    <div>
+      <ul id="tweets-list"></ul>
+    
+
+    </div>
+  </form>
+
+
+
+  <script>
+    let form = document.querySelector('form')
+    let textarea = document.querySelector('#message')
+    let list = document.querySelector('#tweets-list')
+    let counter = document.querySelector('#counter')
+    let button = document.querySelector('#button2')
+    
+    
+    textarea.addEventListener("input", function () {
+      updateCounter(textarea.value.length); /*счетчик*/
+    })
+    
+    textarea.addEventListener("input", function () {
+        disabledButton(textarea.value.length)   /*вызов функции разблокировки кнопки*/
+    })
+
+    let posts = []  /*создает массив для постов*/
+
+    form.addEventListener('submit', (event) => { 
+      event.preventDefault(); /*блокирует перезагрузку страницы*/
+
+      let message = textarea.value  
+      posts.push(message)          /* пушит текст в масив постов*/
+
+      form.reset()        /*обновляет поле ввода*/
+      updateCounter(0)    /*обновляет счетчик*/
+      render()            /*обновляет форматирование массива постов*/
+    })
+     function disabledButton(value2) {  /*функция для блокировки/разблокировки кпнопки*/
+      
+      if ( value2 == 0 ) {                           //блокирует кнопку
+        button.setAttribute('Disabled', 'disabled')
+    }
+      else if ( value2 >= 270 ) {            //блокирует кнопку и делает красным счетчик
+             
+        button.setAttribute('Disabled', 'disable')
+        counter.setAttribute('Style', 'color:#ff0000')
+      }
+      else if ( value2 < 270 ) {             //разблокирует кнопку и убирает цвет счетчика
+  
+        button.removeAttribute('Disabled')
+        counter.removeAttribute('Style')
+          }   
+      else if ( value2 !== 0 ) {             //разблокирует кнопку
+        button.removeAttribute('Disabled')
+      }
+         }
+
+    function render() {        /*форматирование массива постов*/
+      let html = posts
+        .map(item => '<li>' + item + '</li>')
+        .join('')
+      list.innerHTML = html
+    }
+
+    function updateCounter(value) {
+      counter.textContent = value /*вставляет количество символов в html*/
+    }
+  </script>
+
+</body>
+
+</html>
