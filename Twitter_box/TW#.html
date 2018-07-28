@@ -26,44 +26,81 @@
 
 
   <script>
-    let form = document.querySelector('form')
-    let textarea = document.querySelector('#message')
-    let list = document.querySelector('#tweets-list')
-    let counter = document.querySelector('#counter')
-    let button = document.querySelector('#button2')
+    let form = document.querySelector('form');
+    let textarea = document.querySelector('#message');
+    let list = document.querySelector('#tweets-list');
+    let counter = document.querySelector('#counter');
+    let button = document.querySelector('#button2');
+    let random1 = getRandomInt(0, 10)
     
-   
-    textarea.addEventListener("input", function () {
-        disabledButton(textarea.value.length)   /*вызов функции разблокировки кнопки*/
-    })
-    
+    randomColorMassage(random1)
     textarea.addEventListener("input", function () {
       updateCounter(textarea.value.length); /*счетчик*/
     })
-
-    function disabledButton(value2) {  /*функция для блокировки/разблокировки кпнопки*/
-      
-        if ( value2 == 0 ) { 
-        button.setAttribute('Disabled', 'disabled')
-    }
-                                                     //делает блокировку кнопки и счетчик красный
-      else if ( value2 >= 270 ) {
-             
-             button.setAttribute('Disabled', 'disable')
-             counter.setAttribute('Style', 'color:#ff0000')
-      }
-      else if ( value2 < 270 ) {
-
-        button.removeAttribute('Disabled')
-         counter.removeAttribute('Style')
-          }   else if ( value2 !== 0 ) {
-        button.removeAttribute('Disabled')
-      }
-         }
-   function updateCounter(value) {
-      counter.textContent = value /*вставляет количество символов в html*/
-    }
     
+    
+
+    let posts = []  /*создает массив для постов*/
+
+    form.addEventListener('submit', (event) => { 
+      event.preventDefault(); /*блокирует перезагрузку страницы*/
+
+      let message = textarea.value  
+      posts.push(message)          /* пушит текст в масив постов*/
+
+      form.reset()        /*обновляет поле ввода*/
+      updateCounter(0)    /*обновляет счетчик*/
+      render()            /*обновляет форматирование массива постов*/
+    })
+     
+     function randomColorMassage (test) {
+      if ( test == 1 ) {
+        let c = list 
+        c.style.cssText = "color: red"
+      } else if ( test == 2){
+        let s = list
+        s.style.cssText = "color: blue"
+     } else if ( test == 3){
+        let g = list
+        g.style.cssText = "color: orangered"
+     } else if ( test == 4){
+        let h = list
+        h.style.cssText = "color: gold"
+     } else if ( test == 5){
+        let j = list
+        j.style.cssText = "color: yellow"
+     } else if ( test == 6){
+        let k = list
+        k.style.cssText = "color: green"
+     } else if ( test == 7){
+        let l = list
+        length.style.cssText = "color: aqua"
+     } else if ( test == 8){
+        let w = list
+        w.style.cssText = "color: purple"
+     } else if ( test == 9){
+        let q = list
+        q.style.cssText = "color: pink"
+     }
+   }
+     function getRandomInt(min, max) {
+
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+} 
+
+    function render() {        /*форматирование массива постов*/
+      let html = posts
+        .map(item => '<li>' + item + '</li>')
+        .join('');
+      list.innerHTML = html;
+    }
+
+    function updateCounter(value) {
+      counter.textContent = value;/*вставляет количество символов в html*/
+    }
+
+
+
   </script>
 
 </body>

@@ -17,8 +17,6 @@
     </div>
     <div>
       <ul id="tweets-list"></ul>
-    
-
     </div>
   </form>
 
@@ -30,6 +28,16 @@
     let list = document.querySelector('#tweets-list')
     let counter = document.querySelector('#counter')
     let button = document.querySelector('#button2')
+    let d = new Date();    //данные для даты
+    let currDate = d.getDate();
+    let currMonth = d.getMonth() + 1;
+    let currYear = d.getFullYear();
+    let currHours = d.getHours();
+    let currMinutes = d.getMinutes()
+    let a = ( currHours + ":" + currMinutes + " " + currDate + "-" + currMonth + "-" + currYear); //конец данных для даты 
+    let random1 = getRandomInt(0, 10) //функцию рандома в переменную
+    
+    randomColorMassage(random1) //вызов функции рандома для цветов сообщений
     
     
     textarea.addEventListener("input", function () {
@@ -38,7 +46,7 @@
     
     textarea.addEventListener("input", function () {
         disabledButton(textarea.value.length)   /*вызов функции разблокировки кнопки*/
-    })
+    }) 
 
     let posts = []  /*создает массив для постов*/
 
@@ -74,7 +82,7 @@
 
     function render() {        /*форматирование массива постов*/
       let html = posts
-        .map(item => '<li>' + item + '</li>')
+        .map(item => '<li>' + item + " " + a + '</li>')   //включил дату к сообщения
         .join('')
       list.innerHTML = html
     }
@@ -82,6 +90,42 @@
     function updateCounter(value) {
       counter.textContent = value /*вставляет количество символов в html*/
     }
+
+     function randomColorMassage (test) {    //функция рандомных цветов для сообщений
+      if ( test == 1 ) { 
+        let c = list 
+        c.style.cssText = "color: red"
+      } else if ( test == 2){
+        let s = list
+        s.style.cssText = "color: blue"
+     } else if ( test == 3){
+        let g = list
+        g.style.cssText = "color: orangered"
+     } else if ( test == 4){
+        let h = list
+        h.style.cssText = "color: gold"
+     } else if ( test == 5){
+        let j = list
+        j.style.cssText = "color: yellow"
+     } else if ( test == 6){
+        let k = list
+        k.style.cssText = "color: green"
+     } else if ( test == 7){
+        let l = list
+        length.style.cssText = "color: aqua"
+     } else if ( test == 8){
+        let w = list
+        w.style.cssText = "color: purple"
+     } else if ( test == 9){
+        let q = list
+        q.style.cssText = "color: pink"
+     }
+   }
+     function getRandomInt(min, max) {      //функция рандомных чисел для цветов
+
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+} 
+
   </script>
 
 </body>
