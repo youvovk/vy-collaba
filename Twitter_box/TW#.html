@@ -11,34 +11,42 @@
   <form id="form1">
     <div>
       <textarea id="message" name="tweet" rows="5" placeholder="What do you think?"></textarea>
-      <button id="button2" type="submit" >Tweet</button>
+      <button id="button2" type="submit" disabled="disabled">Tweet</button>
       <br />
       <div id="counter">0</div>
     </div>
     <div>
       <ul id="tweets-list"></ul>
-    
-
     </div>
-  
   </form>
 
 
 
   <script>
-    let form = document.querySelector('form');
-    let textarea = document.querySelector('#message');
-    let list = document.querySelector('#tweets-list');
-    let counter = document.querySelector('#counter');
-    let button = document.querySelector('#button2');
-    let random1 = getRandomInt(0, 10)
+    let form = document.querySelector('form')
+    let textarea = document.querySelector('#message')
+    let list = document.querySelector('#tweets-list')
+    let counter = document.querySelector('#counter')
+    let button = document.querySelector('#button2')
+    let d = new Date();    //данные для даты
+    let currDate = d.getDate();
+    let currMonth = d.getMonth() + 1;
+    let currYear = d.getFullYear();
+    let currHours = d.getHours();
+    let currMinutes = d.getMinutes()
+    let a = ( currHours + ":" + currMinutes + " " + currDate + "-" + currMonth + "-" + currYear); //конец данных для даты 
+    let random1 = getRandomInt(0, 10) // параметры для функцию для рандомного числа, для изменения цвета
     
-    randomColorMassage(random1)
+    randomColorMassage(random1) //вызов функции рандома для цветов сообщений
+    
+    
     textarea.addEventListener("input", function () {
       updateCounter(textarea.value.length); /*счетчик*/
     })
     
-    
+    textarea.addEventListener("input", function () {
+        disabledButton(textarea.value.length)   /*вызов функции разблокировки кнопки*/
+    }) 
 
     let posts = []  /*создает массив для постов*/
 
@@ -47,14 +55,57 @@
 
       let message = textarea.value  
       posts.push(message)          /* пушит текст в масив постов*/
-
+      
+      myLocalStorage()
       form.reset()        /*обновляет поле ввода*/
       updateCounter(0)    /*обновляет счетчик*/
       render()            /*обновляет форматирование массива постов*/
     })
-     
-     function randomColorMassage (test) {
-      if ( test == 1 ) {
+     function disabledButton(value2) {  /*функция для блокировки/разблокировки кпнопки*/
+      
+      if ( value2 == 0 ) {                           //блокирует кнопку
+        button.setAttribute('Disabled', 'disabled')
+    }
+      else if ( value2 >= 270 ) {            //блокирует кнопку и делает красным счетчик
+             
+        button.setAttribute('Disabled', 'disable')
+        counter.setAttribute('Style', 'color:#ff0000')
+      }
+      else if ( value2 < 270 ) {             //разблокирует кнопку и убирает цвет счетчика
+  
+        button.removeAttribute('Disabled')
+        counter.removeAttribute('Style')
+          }   
+      else if ( value2 !== 0 ) {             //разблокирует кнопку
+        button.removeAttribute('Disabled')
+      }
+         }
+
+    function render() {        /*форматирование массива постов*/
+      let html = posts
+        .map(item => '<li>' + item + " " + a + '</li>')   //включил дату в сообщение
+        .join('')
+      list.innerHTML = html
+    }
+
+    function updateCounter(value) {
+      counter.textContent = value /*вставляет количество символов в html*/
+    } 
+
+    function myLocalStorage() {
+      if (localStorage("allposts") != null) {
+        let contPost = localStorage("allposts")
+        list.innerHTML = contPost
+      }
+      let myposts = posts
+      localStorage.setItem("allposts", JSON.stringify(myposts));
+
+      let storesNames = JSON.parse(localStorage.getItem("allposts"));
+      //alert(storesNames)
+    }
+ 
+     function randomColorMassage (test) {    //функция рандомных цветов для сообщений
+      if ( test == 1 ) { 
         let c = list 
         c.style.cssText = "color: red"
       } else if ( test == 2){
@@ -83,23 +134,10 @@
         q.style.cssText = "color: pink"
      }
    }
-     function getRandomInt(min, max) {
+     function getRandomInt(min, max) {      //функция рандомных чисел для цветов
 
       return Math.floor(Math.random() * (max - min + 1)) + min;
 } 
-
-    function render() {        /*форматирование массива постов*/
-      let html = posts
-        .map(item => '<li>' + item + '</li>')
-        .join('');
-      list.innerHTML = html;
-    }
-
-    function updateCounter(value) {
-      counter.textContent = value;/*вставляет количество символов в html*/
-    }
-
-
 
   </script>
 
