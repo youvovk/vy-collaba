@@ -4,56 +4,145 @@
 <head>
   <meta charset="utf-8">
   <style type="text/css">
-    p { list-style-type: none; }
-    p { counter-reset: list -1; }
-    p:before {
-    counter-increment: list;
-    content: counter(list) ". ";
-} 
   </style>
 </head>
 
 <body>
   <form id="form1">
-  <div>
-        <textarea id="area1" rows="5">Yes</textarea>
-        <input type="button" value="Tweet" onclick="go()" />
-        <br />
-        <div id="div">0</div>
+    <div>
+      <textarea id="message" name="tweet" rows="5" placeholder="What do you think?"></textarea>
+      <button id="button2" type="submit" disabled="disabled">Tweet</button>
+      <br />
+      <div id="counter">0</div>
     </div>
-   <div>
-    
-      <p id="as"></p>
-    
-  </div>
-  </form> 
+    <div>
+      <ul id="tweets-list"></ul>
+    </div>
+  </form>
 
- 
+
 
   <script>
-  // Создаём некоторый объект
-var session = {
-  'screens': [],
-  'state': true
-};
-session.screens.push({ 'name': 'экранА', 'width': 450, 'height': 250 });
-session.screens.push({ 'name': 'экранБ', 'width': 650, 'height': 350 });
-session.screens.push({ 'name': 'экранВ', 'width': 750, 'height': 120 });
-session.screens.push({ 'name': 'экранГ', 'width': 250, 'height': 60 });
-session.screens.push({ 'name': 'экранД', 'width': 390, 'height': 120 });
-session.screens.push({ 'name': 'экранЕ', 'width': 1240, 'height': 650 });
+    let form = document.querySelector('form');
+    let textarea = document.querySelector('#message');
+    let list = document.querySelector('#tweets-list');
+    let counter = document.querySelector('#counter');
+    let button = document.querySelector('#button2');
+       
+    function updateData() { 
+    let d = new Date();    //данные для даты
+    let currDate = d.getDate();
+    let currMonth = d.getMonth() + 1;
+    let currYear = d.getFullYear();
+    let currHours = d.getHours();
+    let currMinutes = d.getMinutes();
+    let a = ( currHours + ":" + currMinutes + " " + currDate + "-" + currMonth + "-" + currYear); //конец данных для даты 
+    }
+        
+    textarea.addEventListener("input", function () {
+      updateCounter(textarea.value.length); /*счетчик*/
+    })
+    
+    textarea.addEventListener("input", function () {
+        disabledButton(textarea.value.length);   /*вызов функции разблокировки кнопки*/
+    }) 
 
-// Преобразуем его в строку JSON с помощью метода JSON.stringify(),
-// затем сохраняем его в localStorage под именем session
-localStorage.setItem('session', JSON.stringify(session));
+    let posts = JSON.parse(window.localStorage.getItem('posts')) || []; /*создает массив для постов*/
+    render();
 
-// Пример того, как можно преобразовать строку, полученную с помощью метода
-// JSON.stringify() и сохранённую в localStorage обратно в объект
-var restoredSession = JSON.parse(localStorage.getItem('session'));
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); /*блокирует перезагрузку страницы*/
 
-// Переменная restoredSession содержит объект, который был сохранён
-// в localStorage
-console.log(restoredSession);
+      let random1 = getRandomInt(0, 10); // параметры для функцию для рандомного числа, для изменения цвета
+
+      let message = textarea.value
+      posts.push({ 
+        message: message,
+        ts: updateData(),
+        color: randomColorMassage(random1)
+      }
+        )          /* пушит текст в масив постов*/
+
+      
+      randomColorMassage(random1)
+      
+      updatePostsInLS(posts)
+      form.reset()        /*обновляет поле ввода*/
+      updateCounter(0)    /*обновляет счетчик*/
+      render()
+      disabledButton(textarea.value.length)     
+    })
+
+    
+     function disabledButton(value2) {  /*функция для блокировки/разблокировки кпнопки*/
+      
+      if ( value2 == 0 ) {                           //блокирует кнопку
+        button.setAttribute('disabled', 'disabled');
+    }
+      else if ( value2 >= 270 ) {            //блокирует кнопку и делает красным счетчик
+             
+        button.setAttribute('disabled', 'disable');
+        counter.setAttribute('style', 'color:#ff0000');
+      }
+      else if ( value2 < 270 ) {             //разблокирует кнопку и убирает цвет счетчика
+  
+        button.removeAttribute('disabled');
+        counter.removeAttribute('style');
+          }   
+      else if ( value2 !== 0 ) {             //разблокирует кнопку
+        button.removeAttribute('disabled');
+      }
+         }
+
+    function render() {        /*форматирование массива постов*/
+      let html = posts
+        .map(object => '<li>' + object.message + ' . ' + object.ts + '</li>')   
+        .join('');
+      list.innerHTML = html;
+    } 
+     function updatePostsInLS (posts) {
+      window.localStorage.setItem('posts', JSON.stringify(posts));
+    }
+
+    function updateCounter(value) {
+      counter.textContent = value; /*вставляет количество символов в html*/
+    } 
+
+    function randomColorMassage (test) {    //функция рандомных цветов для сообщений
+      if ( test == 1 ) { 
+        let c = list;
+        c.style.cssText = "color: red";
+      } else if ( test == 2){
+        let s = list;
+        s.style.cssText = "color: blue";
+     } else if ( test == 3){
+        let g = list;
+        g.style.cssText = "color: orangered";
+     } else if ( test == 4){
+        let h = list;
+        h.style.cssText = "color: gold";
+     } else if ( test == 5){
+        let j = list;
+        j.style.cssText = "color: yellow";
+     } else if ( test == 6){
+        let k = list;
+        k.style.cssText = "color: green";
+     } else if ( test == 7){
+        let l = list;
+        l.style.cssText = "color: aqua";
+     } else if ( test == 8){
+        let w = list;
+        w.style.cssText = "color: purple";
+     } else if ( test == 9){
+        let q = list;
+        q.style.cssText = "color: pink";
+     }
+   }
+     function getRandomInt(min, max) {      //функция рандомных чисел для цветов
+
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+} 
+
   </script>
 
 </body>

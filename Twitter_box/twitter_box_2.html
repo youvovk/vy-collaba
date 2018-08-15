@@ -23,108 +23,113 @@
 
 
   <script>
-    let form = document.querySelector('form')
-    let textarea = document.querySelector('#message')
-    let list = document.querySelector('#tweets-list')
-    let counter = document.querySelector('#counter')
-    let button = document.querySelector('#button2')
+    let form = document.querySelector('form');
+    let textarea = document.querySelector('#message');
+    let list = document.querySelector('#tweets-list');
+    let counter = document.querySelector('#counter');
+    let button = document.querySelector('#button2');
+       
+    function updateData() { 
     let d = new Date();    //данные для даты
     let currDate = d.getDate();
     let currMonth = d.getMonth() + 1;
     let currYear = d.getFullYear();
     let currHours = d.getHours();
-    let currMinutes = d.getMinutes()
+    let currMinutes = d.getMinutes();
     let a = ( currHours + ":" + currMinutes + " " + currDate + "-" + currMonth + "-" + currYear); //конец данных для даты 
-    let random1 = getRandomInt(0, 10) // параметры для функцию для рандомного числа, для изменения цвета
-    
-    randomColorMassage(random1) //вызов функции рандома для цветов сообщений
-    
-    
+    }
+        
     textarea.addEventListener("input", function () {
       updateCounter(textarea.value.length); /*счетчик*/
     })
     
     textarea.addEventListener("input", function () {
-        disabledButton(textarea.value.length)   /*вызов функции разблокировки кнопки*/
+        disabledButton(textarea.value.length);   /*вызов функции разблокировки кнопки*/
     }) 
 
-    let posts = []  /*создает массив для постов*/
+    let posts = JSON.parse(window.localStorage.getItem('posts')) || []; /*создает массив для постов*/
+    render();
 
-    form.addEventListener('submit', (event) => { 
+    form.addEventListener('submit', (event) => {
       event.preventDefault(); /*блокирует перезагрузку страницы*/
+      let random1 = getRandomInt(0, 10); // параметры для функцию для рандомного числа, для изменения цвета
 
-      let message = textarea.value  
-      posts.push(message)          /* пушит текст в масив постов*/
+      let message = textarea.value;
+      posts.push({
+        message: message;
+        color: randomColorMassage(random1);
+        ts: updateData();
+      })      /* пушит текст в масив постов*/
 
-      form.reset()        /*обновляет поле ввода*/
-      updateCounter(0)    /*обновляет счетчик*/
-      render()            /*обновляет форматирование массива постов*/
+      updatePostsInLS(posts);
+      form.reset();      /*обновляет поле ввода*/
+      updateCounter(0);    /*обновляет счетчик*/
+      render();            /*обновляет форматирование массива постов*/
     })
+
+    
      function disabledButton(value2) {  /*функция для блокировки/разблокировки кпнопки*/
       
       if ( value2 == 0 ) {                           //блокирует кнопку
-        button.setAttribute('Disabled', 'disabled')
+        button.setAttribute('disabled', 'disabled');
     }
       else if ( value2 >= 270 ) {            //блокирует кнопку и делает красным счетчик
              
-        button.setAttribute('Disabled', 'disable')
-        counter.setAttribute('Style', 'color:#ff0000')
+        button.setAttribute('disabled', 'disable');
+        counter.setAttribute('style', 'color:#ff0000');
       }
       else if ( value2 < 270 ) {             //разблокирует кнопку и убирает цвет счетчика
   
-        button.removeAttribute('Disabled')
-        counter.removeAttribute('Style')
+        button.removeAttribute('disabled');
+        counter.removeAttribute('style');
           }   
       else if ( value2 !== 0 ) {             //разблокирует кнопку
-        button.removeAttribute('Disabled')
+        button.removeAttribute('disabled');
       }
          }
 
     function render() {        /*форматирование массива постов*/
       let html = posts
         .map(item => '<li>' + item + " " + a + '</li>')   //включил дату "a" в сообщение
-        .join('')
-      list.innerHTML = html
+        .join('');
+      list.innerHTML = html;
+    } 
+     function updatePostsInLS (posts) {
+      window.localStorage.setItem('posts', JSON.stringify(posts));
     }
 
     function updateCounter(value) {
-      counter.textContent = value /*вставляет количество символов в html*/
+      counter.textContent = value; /*вставляет количество символов в html*/
     } 
 
-    function myLocalStorage() {
-      let myposts = posts
-      localStorage.setItem("allposts", JSON.stringify(myposts));
-      let storedNames = JSON.parse(localStorage.getItem("allposts"));
-    }
- 
-     function randomColorMassage (test) {    //функция рандомных цветов для сообщений
+    function randomColorMassage (test) {    //функция рандомных цветов для сообщений
       if ( test == 1 ) { 
-        let c = list 
-        c.style.cssText = "color: red"
+        let c = list;
+        c.style.cssText = "color: red";
       } else if ( test == 2){
-        let s = list
-        s.style.cssText = "color: blue"
+        let s = list;
+        s.style.cssText = "color: blue";
      } else if ( test == 3){
-        let g = list
-        g.style.cssText = "color: orangered"
+        let g = list;
+        g.style.cssText = "color: orangered";
      } else if ( test == 4){
-        let h = list
-        h.style.cssText = "color: gold"
+        let h = list;
+        h.style.cssText = "color: gold";
      } else if ( test == 5){
-        let j = list
-        j.style.cssText = "color: yellow"
+        let j = list;
+        j.style.cssText = "color: yellow";
      } else if ( test == 6){
-        let k = list
-        k.style.cssText = "color: green"
+        let k = list;
+        k.style.cssText = "color: green";
      } else if ( test == 7){
-        let l = list
-        length.style.cssText = "color: aqua"
+        let l = list;
+        l.style.cssText = "color: aqua";
      } else if ( test == 8){
-        let w = list
-        w.style.cssText = "color: purple"
+        let w = list;
+        w.style.cssText = "color: purple";
      } else if ( test == 9){
-        let q = list
-        q.style.cssText = "color: pink"
+        let q = list;
+        q.style.cssText = "color: pink";
      }
    }
      function getRandomInt(min, max) {      //функция рандомных чисел для цветов
