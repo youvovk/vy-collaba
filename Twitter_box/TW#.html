@@ -30,16 +30,16 @@
     let button = document.querySelector('#button2');
             
     textarea.addEventListener("input", function () {
-      updateCounter(textarea.value.length); /*счетчик*/
+      updateCounter(textarea.value.length); /*счетчик символов*/
     })
     
     textarea.addEventListener("input", function () {
       disabledButton(textarea.value.length); /*вызов функции разблокировки кнопки*/
     }) 
     function updatePostsInLS (posts) {
-      window.localStorage.setItem('posts', JSON.stringify(posts));
+      window.localStorage.setItem('posts', JSON.stringify(posts)); /*сохранение постов при перезагрузке*/
     }
-    let posts = JSON.parse(window.localStorage.getItem('posts')) || [];  /*создает массив для постов*/
+    let posts = JSON.parse(window.localStorage.getItem('posts')) || [];  /*возвращает сохраненные посты/создает массив для постов*/
     render();
 
     form.addEventListener('submit', (event) => {
@@ -53,16 +53,16 @@
       let currMinutes = d.getMinutes();
       let a = ( currHours + ":" + currMinutes + " " + currDate + "-" + currMonth + "-" + currYear); //конец данных для даты
 
-      let number = getRandomInt(1,10);
+      let number = getRandomInt(1,10); /*вызов функции рандомных чисел*/
       let message = textarea.value;
-      randomColorMassage(number);
+      randomColorMassage(number); /*вызов функции подбора цвета под рандомное число*/
       posts.push( { 
         message: message,
         ts: a,
         color: color2
-    })          /* пушит текст в масив постов*/
+    })          /* пушит текст/дату/цвет в объект массива постов*/
 
-      updatePostsInLS(posts);
+      updatePostsInLS(posts); /*вызов функции сохранения постов при перезагрузке*/
       form.reset();     /*обновляет поле ввода*/
       updateCounter(0);   /*обновляет счетчик*/
       render();
@@ -90,7 +90,7 @@
     }
          }
 
-    function render() {        /*форматирование массива постов*/
+    function render() {        /*форматирование объекта в массиве постов + подтягивание в сообщение цвет и дату*/
       let html = posts
         .map(object => '<li style="color: ' + object.color + ';">' + object.message + '. ' + object.ts + '</li>')   //включил дату в сообщение
         .join('')
