@@ -4,15 +4,46 @@
 <head>
   <meta charset="utf-8">
   <style type="text/css">
+    #form1 {
+      border: 2px solid black; 
+      width: 800px;
+      margin-left: 20px;
+    }
+    #message {
+     width: 700px;
+     height: 150px;
+     margin-left: 46px;
+     margin-top: 41px;
+    }
+    #button2 {
+     margin-left: 701px;
+
+    }
+    #counter {
+      position: absolute;
+      top: 210px;
+      margin-left: 100px;
+    }
+    #length {
+      position: absolute;;
+      top: 194px;
+      margin-left: 45px;
+    }
+    #tweets-list {
+      margin-left: 90px;
+    }
   </style>
 </head>
 
 <body>
   <form id="form1">
-    <div>
-      <textarea id="message" name="tweet" rows="5" placeholder="What do you think?"></textarea>
+    <div id="textCounter">
+      <textarea id="message" name="tweet" rows="5" placeholder="What do you think?" cols="70" rows="12" ></textarea>
       <button id="button2" type="submit" disabled="disabled">Tweet</button>
       <br />
+      <div id="length"> 
+        <p>Length:</p>
+      </div>
       <div id="counter">0</div>
     </div>
     <div>
