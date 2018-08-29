@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <button onclick="test();">Add new item</button>
+    <br>
+  <div>
+      <ul id="item_list"></ul>
+  </div>
+  <script>
+    function test() {
+  let element = document.querySelector('#item_list');
+  let link = document.createElement('li');
+  let button1 = document.createElement('button');
+
+  link.innerHTML = 'item';
+  button1.innerHTML = 'x';
+  button1.setAttribute('id', 'delete')
+  link.setAttribute('id', 'delete1')
+  button1.setAttribute('onclick', 'deleteItem()')
+
+  element.appendChild(link);
+  element.appendChild(button1);
+}
+
+    function deleteItem() {
+      let lists = document.querySelector('#delete');
+      let lists1 = document.querySelector('#delete1');
+      lists.remove()
+      lists1.remove()
+      
+   }
+  </script>
+
+</body>
+
+</html>
