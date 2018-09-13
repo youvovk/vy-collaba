@@ -8,34 +8,54 @@
 </head>
 
 <body>
-  <button onclick="test();">Add new item</button>
-    <br>
+  <button id="add-new-item">Add new item</button>
+  <br>
   <div>
-      <ul id="item_list"></ul>
+    <ul id="item_list"></ul>
   </div>
+  <div id="counter"></div>
   <script>
-    function test() {
-  let element = document.querySelector('#item_list');
-  let link = document.createElement('li');
-  let button1 = document.createElement('button');
+    let items = []
 
-  link.innerHTML = 'item';
-  button1.innerHTML = 'x';
-  button1.setAttribute('id', 'delete')
-  link.setAttribute('id', 'delete1')
-  button1.setAttribute('onclick', 'deleteItem()')
+    let counter2 = document.querySelector('#counter');
+    function add () {
+      addNewItem ();
+      items.push('new item' + count);
+      updateCounter(items.length);
+    }
+    
+    let count = 0;
 
-  element.appendChild(link);
-  element.appendChild(button1);
-}
+    let list = document.querySelector('#item_list');
+    let addNewBtn = document.querySelector('#add-new-item');
 
-    function deleteItem() {
-      let lists = document.querySelector('#delete');
-      let lists1 = document.querySelector('#delete1');
-      lists.remove()
-      lists1.remove()
-      
-   }
+    addNewBtn.addEventListener('click', add);
+
+    list.addEventListener('click', function (e) {
+      if (e.target.tagName === 'BUTTON') {
+        e.target.parentElement.remove();
+      }
+      items.splice(0, 1);
+      updateCounter(items.length);
+    });
+
+    function addNewItem () {
+      count++;
+
+      let link = document.createElement('li');
+      let button = document.createElement('button');
+
+      link.innerText = 'item ' + count + ' ';
+
+      button.innerText = 'x';
+      link.appendChild(button);
+
+      list.appendChild(link);
+    }
+
+    function updateCounter(value) {
+      counter2.textContent = value; 
+    } 
   </script>
 
 </body>
