@@ -1,5 +1,7 @@
-function sortByYear (arr) {
-	for (let i = 0; i < arr.length; i++) {
- 
-  }
-}
+let num = filmsInJSON.sort(function (a, b) {
+	
+		return a.year - b.year;
+	
+}); //FIRST TASK 
+
+console.log(num);
