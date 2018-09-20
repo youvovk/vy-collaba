@@ -95,7 +95,7 @@ console.log(filmsInJSON)*/
 
 	for (let i = 0; i < arr.length; i++) {
 		if (arr[i].duration > 0) {
-			durationAll.push(arr[i].duration)
+			durationAll.push(arr[i].duration);
 
 		}
 
@@ -103,9 +103,28 @@ console.log(filmsInJSON)*/
 	for (let p = 0; p < durationAll.length; p++) {
 		sumDuration += durationAll[p];
 	}
-	console.log(durationAll)
-	console.log(sumDuration)
+	console.log(durationAll);
+	console.log(sumDuration);
 	
 }
 
-getTotalDuration(filmsInJSON)*/
+getTotalDuration(filmsInJSON);*/
+
+
+/*function getTotalCommentsByFilm(arr) {
+
+  let totalComments = [];
+
+  for (let i = 0; i < filmsInJSON.length; i++) {
+
+    if (filmsInJSON[i].title == arr) {
+  	  totalComments.push(filmsInJSON[i].comments);
+  	   	  
+  	   } 
+  } 
+    return totalComments[0].length;
+}
+
+let sumComment = getTotalCommentsByFilm("Scenty");
+console.log(sumComment);*/
+
