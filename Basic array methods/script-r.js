@@ -87,3 +87,25 @@ console.log(result);  */
 let go = getAmountByGenres(filmsInJSON)
 console.log(go)
 console.log(filmsInJSON)*/
+
+/*function getTotalDuration(arr) {
+
+	let durationAll = [];
+	let sumDuration = 0;
+
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i].duration > 0) {
+			durationAll.push(arr[i].duration)
+
+		}
+
+	} 
+	for (let p = 0; p < durationAll.length; p++) {
+		sumDuration += durationAll[p];
+	}
+	console.log(durationAll)
+	console.log(sumDuration)
+	
+}
+
+getTotalDuration(filmsInJSON)*/
