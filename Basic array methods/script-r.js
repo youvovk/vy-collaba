@@ -111,20 +111,54 @@ console.log(filmsInJSON)*/
 getTotalDuration(filmsInJSON);*/
 
 
-/*function getTotalCommentsByFilm(arr) {
+/*function getTotalCommentsByFilm(arr, idFilm) {
 
   let totalComments = [];
 
-  for (let i = 0; i < filmsInJSON.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
 
-    if (filmsInJSON[i].title == arr) {
-  	  totalComments.push(filmsInJSON[i].comments);
+    if (arr[i].id == idFilm) {
+  	  totalComments.push(arr[i].comments);
   	   	  
   	   } 
   } 
     return totalComments[0].length;
 }
 
-let sumComment = getTotalCommentsByFilm("Scenty");
+let sumComment = getTotalCommentsByFilm(filmsInJSON, 1);
 console.log(sumComment);*/
+
+function getCommentsByAuthorId(arr, autId) {
+
+  let arrAuthor = [];
+
+  for (let i = 0; i < arr.length; i++) {
+      
+        arrAuthor.push(arr[i].comments);
+      
+  }
+
+  let arrAllAut = [];
+  for(let j = 0; j < arrAuthor.length; j++) {
+    for(let n = 0; n < arrAuthor.length; n++) {
+      if (arrAuthor[j][n]) {
+        arrAllAut.push(arrAuthor[j][n]);
+      }
+    
+    }
+  }
+
+  let arrOneAut = [];
+  for (let p = 0; p < arrAllAut.length; p++) {
+    if (arrAllAut[p].authorId == autId) {
+          arrOneAut.push(arrAllAut[p]);
+ 	}
+  }
+
+  return arrOneAut;
+}
+
+let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
+console.log(authorComments);
+
 
