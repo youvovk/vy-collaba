@@ -128,13 +128,13 @@ getTotalDuration(filmsInJSON);*/
 let sumComment = getTotalCommentsByFilm(filmsInJSON, 1);
 console.log(sumComment);*/
 
-function getCommentsByAuthorId(arr, autId) {
+/*function getCommentsByAuthorId(arr, autId) {
 
   let arrAuthor = [];
 
   for (let i = 0; i < arr.length; i++) {
       
-        arrAuthor.push(arr[i].comments);
+    arrAuthor.push(arr[i].comments);
       
   }
 
@@ -142,6 +142,7 @@ function getCommentsByAuthorId(arr, autId) {
   for(let j = 0; j < arrAuthor.length; j++) {
     for(let n = 0; n < arrAuthor.length; n++) {
       if (arrAuthor[j][n]) {
+
         arrAllAut.push(arrAuthor[j][n]);
       }
     
@@ -151,7 +152,8 @@ function getCommentsByAuthorId(arr, autId) {
   let arrOneAut = [];
   for (let p = 0; p < arrAllAut.length; p++) {
     if (arrAllAut[p].authorId == autId) {
-          arrOneAut.push(arrAllAut[p]);
+
+      arrOneAut.push(arrAllAut[p]);
  	}
   }
 
@@ -159,6 +161,56 @@ function getCommentsByAuthorId(arr, autId) {
 }
 
 let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
-console.log(authorComments);
+console.log(authorComments);*/
 
+/*function getRatingByFilmId(arr, filmId) {
+
+  let arrComments = [];
+
+   for (let s = 0; s < arr.length; s++) {
+      
+     if (arr[s].id == filmId) {
+
+       arrComments.push(arr[s].comments);
+     }
+      
+   }
+  
+  let arrOneFilm = [];
+    for(let l = 0; l < arrComments.length; l++) {
+      for(let p = 0; p < arr.length; p++) {
+        if (arrComments[l][p]) {
+
+          arrOneFilm.push(arrComments[l][p]);
+        }
+      }
+    }
+
+
+  let arrRatingByFilm = [];
+
+  for (let v = 0; v < arrOneFilm.length; v++) {
+
+  	if (arrOneFilm[v].rating) {
+
+  	  arrRatingByFilm.push(arrOneFilm[v].rating);
+  	}
+  } 
+  
+  let sumRating = 0;
+  
+  for (let z = 0; z < arrRatingByFilm.length; z++) {
+
+    sumRating += arrRatingByFilm[z];
+  }
+
+  sumRating /= arrRatingByFilm.length;
+  let roundOff = sumRating.toFixed(1);
+
+  
+  return roundOff;
+}
+
+let ratingFilm = getRatingByFilmId(filmsInJSON, 8);
+console.log(ratingFilm);*/
 
