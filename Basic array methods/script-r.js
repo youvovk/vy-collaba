@@ -1,4 +1,5 @@
-/*let num = filmsInJSON.sort(function (a, b) {
+/*function sortByYear(arr) {
+  let sortYear = arr.sort(function (a, b) {
 	
   if (a.year > b.year) {
     return 1;
@@ -11,11 +12,15 @@
 
   //return a.year - b.year;
 	
-}); //FIRST TASK 
+  }); 
 
-console.log(num);
+  return sortYear
+} 
+let returnSortYear = sortByYear(filmsInJSON)
 
-function filterByYears (arr, minYear, maxYear) {
+console.log(returnSortYear);*/
+
+/*function filterByYears (arr, minYear, maxYear) {
   if (!minYear && !maxYear) {
     return arr;
   }
@@ -31,22 +36,9 @@ function filterByYears (arr, minYear, maxYear) {
   return filteredFilms;
 }
 
-let result = filterByYears(filmsInJSON, 2000, 2010); //TWISE TASK
+let result = filterByYears(filmsInJSON, 2000, 2010); 
 console.log(result);  */
 
-/*let op = filmsInJSON.sort(function (a, b) {
-	if (a.genre > b.genre) {
-    return 1;
-  }
-  if (a.genre < b.genre) {
-    return -1;
-  }
-  
-  return 0;
-	
-  })*/
- 
- 
 
 /*function getAmountByGenres(arr) {
 	  let comedy = 0;
@@ -84,8 +76,8 @@ console.log(result);  */
 
     return map
 }
-let go = getAmountByGenres(filmsInJSON)
-console.log(go)
+let allSortGenre = getAmountByGenres(filmsInJSON)
+console.log(allSortGenre)
 console.log(filmsInJSON)*/
 
 /*function getTotalDuration(arr) {
