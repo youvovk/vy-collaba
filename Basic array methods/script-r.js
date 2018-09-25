@@ -100,7 +100,7 @@ console.log(filmsInJSON)*/
 	
 }
 
-getTotalDuration(filmsInJSON);*/
+let durationArr =  getTotalDuration(filmsInJSON);*/
 
 
 /*function getTotalCommentsByFilm(arr, idFilm) {
@@ -155,7 +155,7 @@ console.log(sumComment);*/
 let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
 console.log(authorComments);*/
 
-/*function getRatingByFilmId(arr, filmId) {
+function getRatingByFilmId(arr, filmId) {
 
   let arrComments = [];
 
@@ -203,6 +203,45 @@ console.log(authorComments);*/
   return roundOff;
 }
 
-let ratingFilm = getRatingByFilmId(filmsInJSON, 8);
-console.log(ratingFilm);*/
+//let ratingFilm = getRatingByFilmId(filmsInJSON, 8);
+//console.log(ratingFilm);
+
+function sortByRating(arr) {
+
+  let arrMyRating = [];
+
+  for (let i = 1; i < arr.length + 1; i++) {
+
+     let ratingFilm = getRatingByFilmId(arr, i);
+     arrMyRating.push(ratingFilm);
+
+   } 
+   
+  for (let u = 0; u < arr.length; u++) {
+
+     if (arr[u]) {
+       arr[u].rating = arrMyRating[u];
+     }
+   }
+
+  let sortYear = arr.sort(function (a, b) {
+  
+    if (a.rating < b.rating) {
+      return 1;
+    }
+    
+    if (a.rating > b.rating) {
+      return -1;
+    }
+  
+    return 0;
+
+  }); 
+
+  return sortYear;
+}
+
+
+let sortArrRatingComments = sortByRating(filmsInJSON)
+console.log(sortArrRatingComments)
 
