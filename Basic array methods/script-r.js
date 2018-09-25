@@ -1,4 +1,4 @@
-/*function sortByYear(arr) {
+function sortByYear(arr) {
   let sortYear = arr.sort(function (a, b) {
 	
   if (a.year > b.year) {
@@ -14,13 +14,13 @@
 	
   }); 
 
-  return sortYear
+  return sortYear;
 } 
-let returnSortYear = sortByYear(filmsInJSON)
+let returnSortYear = sortByYear(filmsInJSON;
 
-console.log(returnSortYear);*/
+console.log(returnSortYear);
 
-/*function filterByYears (arr, minYear, maxYear) {
+function filterByYears (arr, minYear, maxYear) {
   if (!minYear && !maxYear) {
     return arr;
   }
@@ -37,10 +37,10 @@ console.log(returnSortYear);*/
 }
 
 let result = filterByYears(filmsInJSON, 2000, 2010); 
-console.log(result);  */
+console.log(result);  
 
 
-/*function getAmountByGenres(arr) {
+function getAmountByGenres(arr) {
 	  let comedy = 0;
       let drama = 0;
       let melodrama = 0;
@@ -54,15 +54,15 @@ console.log(result);  */
 
 		  } else if (arr[i].genre == "drama") {
 
-		  	  drama++
+		  	 drama++;
 
 		  } else if (arr[i].genre == "melodrama") {
 
-              melodrama++
+         melodrama++;
 
 		  } else if (arr[i].genre == "documentary") {
 
-              documentary++
+         documentary++;
 
 		  }
 	  }
@@ -72,15 +72,15 @@ console.log(result);  */
   	  drama: drama,
   	  melodrama: melodrama,
   	  documentary: documentary
-    }]
+    }];
 
-    return map
+    return map;
 }
-let allSortGenre = getAmountByGenres(filmsInJSON)
-console.log(allSortGenre)
-console.log(filmsInJSON)*/
+let allSortGenre = getAmountByGenres(filmsInJSON);
+console.log(allSortGenre);
+console.log(filmsInJSON);
 
-/*function getTotalDuration(arr) {
+function getTotalDuration(arr) {
 
 	let durationAll = [];
 	let sumDuration = 0;
@@ -100,10 +100,10 @@ console.log(filmsInJSON)*/
 	
 }
 
-let durationArr =  getTotalDuration(filmsInJSON);*/
+let durationArr =  getTotalDuration(filmsInJSON);
 
 
-/*function getTotalCommentsByFilm(arr, idFilm) {
+function getTotalCommentsByFilm(arr, idFilm) {
 
   let totalComments = [];
 
@@ -118,9 +118,9 @@ let durationArr =  getTotalDuration(filmsInJSON);*/
 }
 
 let sumComment = getTotalCommentsByFilm(filmsInJSON, 1);
-console.log(sumComment);*/
+console.log(sumComment);
 
-/*function getCommentsByAuthorId(arr, autId) {
+function getCommentsByAuthorId(arr, autId) {
 
   let arrAuthor = [];
 
@@ -153,7 +153,7 @@ console.log(sumComment);*/
 }
 
 let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
-console.log(authorComments);*/
+console.log(authorComments);
 
 function getRatingByFilmId(arr, filmId) {
 
@@ -203,16 +203,15 @@ function getRatingByFilmId(arr, filmId) {
   return roundOff;
 }
 
-//let ratingFilm = getRatingByFilmId(filmsInJSON, 8);
-//console.log(ratingFilm);
+
 
 function sortByRating(arr) {
 
   let arrMyRating = [];
 
-  for (let i = 1; i < arr.length + 1; i++) {
+  for (let x = 1; x < arr.length + 1; x++) {
 
-     let ratingFilm = getRatingByFilmId(arr, i);
+     let ratingFilm = getRatingByFilmId(arr, x);
      arrMyRating.push(ratingFilm);
 
    } 
@@ -224,12 +223,12 @@ function sortByRating(arr) {
      }
    }
 
-  let sortYear = arr.sort(function (a, b) {
+  let sortRating = arr.sort(function (a, b) {
   
     if (a.rating < b.rating) {
       return 1;
     }
-    
+
     if (a.rating > b.rating) {
       return -1;
     }
@@ -238,7 +237,7 @@ function sortByRating(arr) {
 
   }); 
 
-  return sortYear;
+  return sortRating;
 }
 
 
