@@ -16,32 +16,36 @@ function sortByYear(arr) {
 
   return sortYear;
 } 
-let returnSortYear = sortByYear(filmsInJSON;
+let returnSortYear = sortByYear(filmsInJSON);
 
-console.log(returnSortYear);
+//console.log(returnSortYear);
 
 function filterByYears (arr, minYear, maxYear) {
   if (!minYear && !maxYear) {
     return arr;
-  }
+  } 
 
   let filteredFilms = [];
 
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].year > minYear && arr[i].year < maxYear) {
-      filteredFilms.push(arr[i])
+      filteredFilms.push(arr[i]);
+    } else if (arr[i].year > minYear && !maxYear) {
+      filteredFilms.push(arr[i]);
+    } else if (arr[i].year < maxYear && !minYear) {
+      filteredFilms.push(arr[i]);
     }
   }
 
   return filteredFilms;
 }
 
-let result = filterByYears(filmsInJSON, 2000, 2010); 
+let result = filterByYears(filmsInJSON, NaN, 2010); 
 console.log(result);  
 
 
 function getAmountByGenres(arr) {
-	  let comedy = 0;
+	    let comedy = 0;
       let drama = 0;
       let melodrama = 0;
       let documentary = 0;
@@ -77,8 +81,8 @@ function getAmountByGenres(arr) {
     return map;
 }
 let allSortGenre = getAmountByGenres(filmsInJSON);
-console.log(allSortGenre);
-console.log(filmsInJSON);
+//console.log(allSortGenre);
+//console.log(filmsInJSON);
 
 function getTotalDuration(arr) {
 
@@ -95,8 +99,8 @@ function getTotalDuration(arr) {
 	for (let p = 0; p < durationAll.length; p++) {
 		sumDuration += durationAll[p];
 	}
-	console.log(durationAll);
-	console.log(sumDuration);
+	//console.log(durationAll);
+	//console.log(sumDuration);
 	
 }
 
@@ -118,7 +122,7 @@ function getTotalCommentsByFilm(arr, idFilm) {
 }
 
 let sumComment = getTotalCommentsByFilm(filmsInJSON, 1);
-console.log(sumComment);
+//console.log(sumComment);
 
 function getCommentsByAuthorId(arr, autId) {
 
@@ -153,7 +157,7 @@ function getCommentsByAuthorId(arr, autId) {
 }
 
 let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
-console.log(authorComments);
+//console.log(authorComments);
 
 function getRatingByFilmId(arr, filmId) {
 
@@ -242,5 +246,5 @@ function sortByRating(arr) {
 
 
 let sortArrRatingComments = sortByRating(filmsInJSON)
-console.log(sortArrRatingComments)
+//console.log(sortArrRatingComments)
 
