@@ -1,38 +1,27 @@
 function sortByYear(arr) {
-  let sortYear = arr.sort(function (a, b) {
-	
-  if (a.year > b.year) {
-    return 1;
-  }
-  if (a.year < b.year) {
-    return -1;
-  }
-  
-  return 0;
-
-  //return a.year - b.year;
-	
-  }); 
+   let sortYear = arr.sort(function (a, b) {
+    return a.year - b.year;
+  });
 
   return sortYear;
-} 
+}
 let returnSortYear = sortByYear(filmsInJSON);
 
-//console.log(returnSortYear);
+  //console.log(returnSortYear);
 
-function filterByYears (arr, minYear, maxYear) {
+function filterByYears(arr, minYear, maxYear) {
   if (!minYear && !maxYear) {
     return arr;
-  } 
+  }
 
   let filteredFilms = [];
 
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i].year > minYear && arr[i].year < maxYear) {
-      filteredFilms.push(arr[i]);
-    } else if (arr[i].year > minYear && !maxYear) {
-      filteredFilms.push(arr[i]);
-    } else if (arr[i].year < maxYear && !minYear) {
+    if (
+      (arr[i].year > minYear && arr[i].year < maxYear) ||
+      (arr[i].year > minYear && !maxYear) ||
+      (arr[i].year < maxYear && !minYear)
+    ) {
       filteredFilms.push(arr[i]);
     }
   }
@@ -40,211 +29,116 @@ function filterByYears (arr, minYear, maxYear) {
   return filteredFilms;
 }
 
-let result = filterByYears(filmsInJSON, NaN, 2010); 
-console.log(result);  
+let result = filterByYears(filmsInJSON, NaN, 2000);
+//console.log(result);  
 
 
 function getAmountByGenres(arr) {
-	    let comedy = 0;
-      let drama = 0;
-      let melodrama = 0;
-      let documentary = 0;
-         
-	  for (let i = 0; i < arr.length; i++) {
+  let genres = {}
 
-		  if (arr[i].genre == "comedy") {
+  for (let i = 0; i < arr.length; i++) {
+    let genre = arr[i].genre;
 
-			  comedy++;
+    if (genres[genre]) {
+      genres[genre]++;
+    } else {
+      genres[genre] = 1;
+    }
+  }
 
-		  } else if (arr[i].genre == "drama") {
-
-		  	 drama++;
-
-		  } else if (arr[i].genre == "melodrama") {
-
-         melodrama++;
-
-		  } else if (arr[i].genre == "documentary") {
-
-         documentary++;
-
-		  }
-	  }
-
-	let map = [{
-  	  comedy: comedy,
-  	  drama: drama,
-  	  melodrama: melodrama,
-  	  documentary: documentary
-    }];
-
-    return map;
+  return genres;
 }
+
 let allSortGenre = getAmountByGenres(filmsInJSON);
 //console.log(allSortGenre);
 //console.log(filmsInJSON);
 
 function getTotalDuration(arr) {
-
-	let durationAll = [];
-	let sumDuration = 0;
-
-	for (let i = 0; i < arr.length; i++) {
-		if (arr[i].duration > 0) {
-			durationAll.push(arr[i].duration);
-
-		}
-
-	} 
-	for (let p = 0; p < durationAll.length; p++) {
-		sumDuration += durationAll[p];
-	}
-	//console.log(durationAll);
-	//console.log(sumDuration);
-	
-}
-
-let durationArr =  getTotalDuration(filmsInJSON);
-
-
-function getTotalCommentsByFilm(arr, idFilm) {
-
-  let totalComments = [];
+  let sumDuration = 0;
 
   for (let i = 0; i < arr.length; i++) {
+    if (arr[i].duration) {
+      sumDuration += arr[i].duration;
+    }
+  }
 
-    if (arr[i].id == idFilm) {
-  	  totalComments.push(arr[i].comments);
-  	   	  
-  	   } 
-  } 
-    return totalComments[0].length;
+  //console.log(sumDuration);
+
+}
+
+let durationArr = getTotalDuration(filmsInJSON);
+
+
+function getTotalCommentsByFilm(arr, filmId) {
+  let totalComments = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === filmId) {
+      totalComments = arr[i].comments.length;
+    }
+  }
+
+  return totalComments;
 }
 
 let sumComment = getTotalCommentsByFilm(filmsInJSON, 1);
 //console.log(sumComment);
 
-function getCommentsByAuthorId(arr, autId) {
-
-  let arrAuthor = [];
+function getCommentsByAuthorId(arr, authorId) {
+  let authorComments = [];
 
   for (let i = 0; i < arr.length; i++) {
-      
-    arrAuthor.push(arr[i].comments);
-      
-  }
-
-  let arrAllAut = [];
-  for(let j = 0; j < arrAuthor.length; j++) {
-    for(let n = 0; n < arrAuthor.length; n++) {
-      if (arrAuthor[j][n]) {
-
-        arrAllAut.push(arrAuthor[j][n]);
+    for (let j = 0; j < arr[i].comments.length; j++) {
+      if (arr[i].comments[j].authorId === authorId) {
+        authorComments.push(arr[i].comments[j]);
       }
-    
     }
   }
 
-  let arrOneAut = [];
-  for (let p = 0; p < arrAllAut.length; p++) {
-    if (arrAllAut[p].authorId == autId) {
 
-      arrOneAut.push(arrAllAut[p]);
- 	}
-  }
-
-  return arrOneAut;
+  return authorComments;
 }
 
 let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
 //console.log(authorComments);
 
-function getRatingByFilmId(arr, filmId) {
-
-  let arrComments = [];
-
-   for (let s = 0; s < arr.length; s++) {
-      
-     if (arr[s].id == filmId) {
-
-       arrComments.push(arr[s].comments);
-     }
-      
-   }
-  
-  let arrOneFilm = [];
-    for(let l = 0; l < arrComments.length; l++) {
-      for(let p = 0; p < arr.length; p++) {
-        if (arrComments[l][p]) {
-
-          arrOneFilm.push(arrComments[l][p]);
-        }
-      }
-    }
-
-
-  let arrRatingByFilm = [];
-
-  for (let v = 0; v < arrOneFilm.length; v++) {
-
-  	if (arrOneFilm[v].rating) {
-
-  	  arrRatingByFilm.push(arrOneFilm[v].rating);
-  	}
-  } 
-  
+// Utility
+function getFilmRating(film) {
   let sumRating = 0;
-  
-  for (let z = 0; z < arrRatingByFilm.length; z++) {
+  let ratingCount = 0;
 
-    sumRating += arrRatingByFilm[z];
+  for (let i = 0; i < film.comments.length; i++) {
+    if (film.comments[i].rating) {
+      sumRating += film.comments[i].rating;
+      ratingCount++;
+    }
   }
 
-  sumRating /= arrRatingByFilm.length;
-  let roundOff = sumRating.toFixed(1);
-
-  
-  return roundOff;
+  return (sumRating / ratingCount).toFixed(1);
 }
 
+function getRatingByFilmId(arr, filmId) {
+  let filmRating = 0;
 
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === filmId) {
+      filmRating = getFilmRating(arr[i])
 
-function sortByRating(arr) {
-
-  let arrMyRating = [];
-
-  for (let x = 1; x < arr.length + 1; x++) {
-
-     let ratingFilm = getRatingByFilmId(arr, x);
-     arrMyRating.push(ratingFilm);
-
-   } 
-   
-  for (let u = 0; u < arr.length; u++) {
-
-     if (arr[u]) {
-       arr[u].rating = arrMyRating[u];
-     }
-   }
-
-  let sortRating = arr.sort(function (a, b) {
-  
-    if (a.rating < b.rating) {
-      return 1;
+      break;
     }
+  }
 
-    if (a.rating > b.rating) {
-      return -1;
-    }
-  
-    return 0;
+  return filmRating;
+}
 
-  }); 
-
-  return sortRating;
+function sortByRating(films) {
+  return films.sort(function (a, b) {
+    return getFilmRating(a) - getFilmRating(b);
+  });
 }
 
 
 let sortArrRatingComments = sortByRating(filmsInJSON)
 //console.log(sortArrRatingComments)
+
 
