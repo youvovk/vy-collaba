@@ -14,38 +14,38 @@ function filterByYears(arr, minYear, maxYear) {
     return arr;
   }
 
-  let filteredFilms = [];
-
-  for (let i = 0; i < arr.length; i++) {
+  let arrFilteredFilmsYears = arr.filter(function(name) {
     if (
-      (arr[i].year > minYear && arr[i].year < maxYear) ||
-      (arr[i].year > minYear && !maxYear) ||
-      (arr[i].year < maxYear && !minYear)
+      (name.year > minYear && name.year < maxYear) ||
+      (name.year > minYear && !maxYear) ||
+      (name.year < maxYear && !minYear)
     ) {
-      filteredFilms.push(arr[i]);
+      
+        return name;
+      
     }
-  }
-
-  return filteredFilms;
+  });
+  
+  return arrFilteredFilmsYears;
 }
 
-let result = filterByYears(filmsInJSON, NaN, 2000);
+let result = filterByYears(filmsInJSON, NaN, 1995);
 //console.log(result);  
 
 
 function getAmountByGenres(arr) {
-  let genres = {}
+  let genres = {};
 
-  for (let i = 0; i < arr.length; i++) {
-    let genre = arr[i].genre;
+  let arrAmountByGenres = arr.map(function(name) {
+  	let genre = name.genre;
 
     if (genres[genre]) {
       genres[genre]++;
     } else {
       genres[genre] = 1;
     }
-  }
-
+  })
+      
   return genres;
 }
 
@@ -55,15 +55,13 @@ let allSortGenre = getAmountByGenres(filmsInJSON);
 
 function getTotalDuration(arr) {
   let sumDuration = 0;
-
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].duration) {
-      sumDuration += arr[i].duration;
+  
+  let arrTotalDuration = arr.map(function(name) {
+    if (name.duration) {
+      sumDuration += name.duration;
     }
-  }
-
-  //console.log(sumDuration);
-
+   }) 
+    //console.log(sumDuration);
 }
 
 let durationArr = getTotalDuration(filmsInJSON);
@@ -71,13 +69,13 @@ let durationArr = getTotalDuration(filmsInJSON);
 
 function getTotalCommentsByFilm(arr, filmId) {
   let totalComments = 0;
-
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].id === filmId) {
-      totalComments = arr[i].comments.length;
+  let arrTotalCommentByFilm = arr.map(function(name) {
+	  if (name.id === filmId) {
+      totalComments = name.comments.length;
     }
-  }
-
+})
+    
+  
   return totalComments;
 }
 
@@ -95,12 +93,19 @@ function getCommentsByAuthorId(arr, authorId) {
     }
   }
 
+  /*let arrComments = arr.map(function(name) {
+  	name.comments.map(function(comm) {
+  		if (comm.authorId === authorId) {
+        return name.comm;
+      }
+  	})
+  })*/
 
   return authorComments;
 }
 
 let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
-//console.log(authorComments);
+console.log(authorComments);
 
 // Utility
 function getFilmRating(film) {
@@ -120,14 +125,14 @@ function getFilmRating(film) {
 function getRatingByFilmId(arr, filmId) {
   let filmRating = 0;
 
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].id === filmId) {
-      filmRating = getFilmRating(arr[i])
+  let arrRatingByFilmId = arr.map(function(name){
+  	 if (name.id === filmId) {
+       filmRating = getFilmRating(name)
 
-      break;
+     break;
     }
-  }
-
+  })
+  
   return filmRating;
 }
 

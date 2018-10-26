@@ -123,4 +123,4 @@ function updateComment (arr, filmCommentId, newComment) {
   return copy;
 
 }
-console.log(updateComment(filmsInJSON, {idFilm: 5, idComm: 2}, {text: "1"}));
+//onsole.log(updateComment(filmsInJSON, {idFilm: 5, idComm: 2}, {text: "1"}));

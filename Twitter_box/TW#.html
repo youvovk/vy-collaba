@@ -77,7 +77,7 @@
 
     form.addEventListener('submit', (event) => {
       event.preventDefault(); /*блокирует перезагрузку страницы*/ 
-
+      console.log(event) 
       let d = new Date();    //данные для даты
       let currDate = d.getDate();
       let currMonth = d.getMonth() + 1;
