@@ -105,22 +105,23 @@ function getCommentsByAuthorId(arr, authorId) {
 }
 
 let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
-console.log(authorComments);
+//console.log(authorComments);
 
 // Utility
 function getFilmRating(film) {
   let sumRating = 0;
   let ratingCount = 0;
 
-  for (let i = 0; i < film.comments.length; i++) {
-    if (film.comments[i].rating) {
-      sumRating += film.comments[i].rating;
+  let arrFilmRating = film.comments.map(function(name) {
+  	if (name.rating) {
+      sumRating += name.rating;
       ratingCount++;
     }
-  }
-
+  })
+    
   return (sumRating / ratingCount).toFixed(1);
 }
+
 
 function getRatingByFilmId(arr, filmId) {
   let filmRating = 0;
