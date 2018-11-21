@@ -14,14 +14,14 @@ function filterByYears(arr, minYear, maxYear) {
     return arr;
   }
 
-  let arrFilteredFilmsYears = arr.filter(function(name) {
+  let arrFilteredFilmsYears = arr.filter(function(film) {
     if (
-      (name.year > minYear && name.year < maxYear) ||
-      (name.year > minYear && !maxYear) ||
-      (name.year < maxYear && !minYear)
+      (film.year > minYear && film.year < maxYear) ||
+      (film.year > minYear && !maxYear) ||
+      (film.year < maxYear && !minYear)
     ) {
       
-        return name;
+        return film;
       
     }
   });
@@ -36,7 +36,7 @@ let result = filterByYears(filmsInJSON, NaN, 1995);
 function getAmountByGenres(arr) {
   let genres = {};
 
-  let arrAmountByGenres = arr.map(function(name) {
+   arr.forEach(function(name) {
   	let genre = name.genre;
 
     if (genres[genre]) {
@@ -51,12 +51,11 @@ function getAmountByGenres(arr) {
 
 let allSortGenre = getAmountByGenres(filmsInJSON);
 //console.log(allSortGenre);
-//console.log(filmsInJSON);
 
 function getTotalDuration(arr) {
   let sumDuration = 0;
   
-  let arrTotalDuration = arr.map(function(name) {
+   arr.forEach(function(name) {
     if (name.duration) {
       sumDuration += name.duration;
     }
@@ -69,11 +68,11 @@ let durationArr = getTotalDuration(filmsInJSON);
 
 function getTotalCommentsByFilm(arr, filmId) {
   let totalComments = 0;
-  let arrTotalCommentByFilm = arr.map(function(name) {
+   arr.forEach(function(name) {
 	  if (name.id === filmId) {
       totalComments = name.comments.length;
     }
-})
+  })
     
   
   return totalComments;
@@ -83,25 +82,16 @@ let sumComment = getTotalCommentsByFilm(filmsInJSON, 1);
 //console.log(sumComment);
 
 function getCommentsByAuthorId(arr, authorId) {
-  let authorComments = [];
+	let authorComments = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr[i].comments.length; j++) {
-      if (arr[i].comments[j].authorId === authorId) {
-        authorComments.push(arr[i].comments[j]);
+  arr.forEach(function(name) {
+     name.comments.forEach(function(comm) {
+      if (comm.authorId === authorId) {
+        authorComments.push(comm);
       }
-    }
-  }
-
-  /*let arrComments = arr.map(function(name) {
-  	name.comments.map(function(comm) {
-  		if (comm.authorId === authorId) {
-        return name.comm;
-      }
-  	})
-  })*/
-
-  return authorComments;
+    })
+  })
+   return authorComments
 }
 
 let authorComments = getCommentsByAuthorId(filmsInJSON, 1003);
@@ -112,7 +102,7 @@ function getFilmRating(film) {
   let sumRating = 0;
   let ratingCount = 0;
 
-  let arrFilmRating = film.comments.map(function(name) {
+  film.comments.forEach(function(name) {
   	if (name.rating) {
       sumRating += name.rating;
       ratingCount++;
@@ -124,17 +114,9 @@ function getFilmRating(film) {
 
 
 function getRatingByFilmId(arr, filmId) {
-  let filmRating = 0;
-
-  let arrRatingByFilmId = arr.map(function(name){
-  	 if (name.id === filmId) {
-       filmRating = getFilmRating(name)
-
-     break;
-    }
-  })
+  let film = arr.find(name => name.id === filmId)
   
-  return filmRating;
+  return getFilmRating(film);
 }
 
 function sortByRating(films) {

@@ -1,23 +1,25 @@
 function removeFilm (arr, filmId) {
  
-  for (let i = 0; i < arr.length; i++) {
-    
-    if (arr[i].id == filmId) {
-           arr.splice(i, 1);
-           return arr;
+  let correctlyFilms = arr.filter(function(noFilmRemove) {
+
+    if (noFilmRemove.id !== filmId) {
+           
+      return noFilmRemove;
         }
-  }
+  })
+    
+   return correctlyFilms;
   
 }
-// let newArr = removeFilm(filmsInJSON, 1);
+//let newArr = removeFilm(filmsInJSON, 1);
 //console.log(newArr);
 
 function removeComment(arr, filmId, commentId) {
    
    for (let i = 0; i < arr.length; i++) {
-       if (arr[i].id == filmId) {
+       if (arr[i].id === filmId) {
         for (let j = 0; j < arr[i].comments.length; j++) {
-           if (arr[i].comments[j].id == commentId) {
+           if (arr[i].comments[j].id === commentId) {
             arr[i].comments.splice(j, 1);
             return arr;
            }
@@ -39,39 +41,41 @@ function addFilm(arr, newAddFilm) {
 // addFilm(filmsInJSON, {title: "", genre: "", director: "", year: null, duration: null});
 
 function addCommentToFilm(arr, filmId, objectNewComents) {
-   for (let i = 0; i < arr.length; i++) {
 
-     if (arr[i].id == filmId) {
+   let addNewCommentToFilm = arr.forEach( function(film) {
+   
+     if (film.id === filmId) {
       
-       objectNewComents.id = arr[i].comments.length;
-       arr[i].comments.push(objectNewComents);
-
-       return arr;
-
+       objectNewComents.id = film.comments.length;
+       film.comments.push(objectNewComents);
      }
-   }
+
+   })
+
+    return arr;
+   
    
 }
-// addCommentToFilm(filmsInJSON, 18, {title: 'foo', authorId: null, authorName: "", text: "", rating: null});
+let correctlyAdd = addCommentToFilm(filmsInJSON, 18, {title: 'foo', authorId: null, authorName: "", text: "", rating: null});
+//console.log(correctlyAdd);
 
 function updateFilmInfo(arr, filmId, updateParams) {
   let copy = arr.slice();
 
-  for (let i = 0; i < copy.length; i++) {
-    if (copy[i].id === filmId) {
+  copy.forEach(function(film) {
+    if (film.id === filmId) {
       let keys = Object.keys(updateParams);
 
-      for (let j = 0; j < keys.length; j++) {
-        let key = keys[j];
+      keys.forEach(function(infoByFilm) {
+        let key = infoByFilm;
         let value = updateParams[key];
 
-        if (copy[i][key] !== undefined) {
-          copy[i][key] = value;
-
+        if (film[key] !== undefined) {
+          film[key] = value;
         }
-      }
+      })    
     }
-  }
+  })
   
   return copy;
 }
@@ -90,37 +94,36 @@ function updateComment (arr, filmCommentId, newComment) {
      let keys = Object.keys(filmCommentId);
      let newCommentByFilm = Object.keys(newComment);
 
-     for (let k = 0; k < newCommentByFilm.length; k++) {
-       let keyComment = newCommentByFilm[k];
-       let valueComment = newComment[keyComment];
-       arrCommentId.push(keyComment);
-       arrCommentValue.push(valueComment);
+     newCommentByFilm.forEach(function(newComm) {
+      let keyComment = newComm;
+      let valueComment = newComment[keyComment];
+      arrCommentId.push(keyComment);
+      arrCommentValue.push(valueComment);
 
-     }
+     })
+       
+     
 
-     for (let r = 0; r < keys.length; r++) {
-        let keysId = keys[r];
-        let keysValueFilmComments =  filmCommentId[keysId];
-        arrId.push(keysId);
-        arrFilmComm.push(keysValueFilmComments);
-      } 
+     keys.forEach(function(key){
+      let keysId = key;
+      let keysValueFilmComments = filmCommentId[keysId];
+      arrId.push(keysId);
+      arrFilmComm.push(keysValueFilmComments);
+     })   
    }
     
-   for (let i = 0; i < copy.length; i++) {
-     if (copy[i].id === arrFilmComm[0]) {
+   copy.forEach(function(film) {
+    if (film.id === arrFilmComm[0]) {
          
-       for (let j = 0; j < copy[i].comments.length; j++) {
-                    
-         if (copy[i].comments[j].id === arrFilmComm[1] ) {
-        
-           copy[i].comments[j][arrCommentId[0]] = arrCommentValue[0];
-        
-         }
-       }
-     }  
-   }
-  
+      film.comments.forEach(function(upDateCmment){
+        if (upDateCmment.id === arrFilmComm[1] ) {
+          upDateCmment[arrCommentId[0]] = arrCommentValue[0];
+        }
+      })    
+    }
+   })
+
   return copy;
 
 }
-//onsole.log(updateComment(filmsInJSON, {idFilm: 5, idComm: 2}, {text: "1"}));
+//console.log(updateComment(filmsInJSON, {idFilm: 5, idComm: 2}, {text: "1"}));
