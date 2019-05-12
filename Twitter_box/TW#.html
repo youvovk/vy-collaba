@@ -3,168 +3,33 @@
 
 <head>
   <meta charset="utf-8">
-  <style type="text/css">
-    #form1 {
-      border: 2px solid black; 
-      width: 800px;
-      margin-left: 20px;
-    }
-    #message {
-     width: 700px;
-     height: 150px;
-     margin-left: 46px;
-     margin-top: 41px;
-     outline-color: black;
-     border-color: black;
-    }
-    #button2 {
-     margin-left: 701px;
-
-    }
-    #counter {
-      position: absolute;
-      top: 210px;
-      margin-left: 100px;
-    }
-    #length {
-      position: absolute;;
-      top: 194px;
-      margin-left: 45px;
-    }
-    #tweets-list {
-      margin-left: 90px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 </head>
 
 <body>
-  <form id="form1">
-    <div id="textCounter">
-      <textarea id="message" name="tweet" rows="5" placeholder="What do you think?" cols="70" rows="12" ></textarea>
-      <button id="button2" type="submit" disabled="disabled">Tweet</button>
-      <br />
-      <div id="length"> 
-        <p>Length:</p>
-      </div>
-      <div id="counter">0</div>
-    </div>
-    <div>
-      <ul id="tweets-list"></ul>
-    </div>
-  </form>
-
-
-
-  <script>
-    let form = document.querySelector('form');
-    let textarea = document.querySelector('#message');
-    let list = document.querySelector('#tweets-list');
-    let counter = document.querySelector('#counter');
-    let button = document.querySelector('#button2');
-            
-    textarea.addEventListener("input", function () {
-      updateCounter(textarea.value.length); /*счетчик символов*/
-    })
-    
-    textarea.addEventListener("input", function () {
-      disabledButton(textarea.value.length); /*вызов функции разблокировки кнопки*/
-    }) 
-    function updatePostsInLS (posts) {
-      window.localStorage.setItem('posts', JSON.stringify(posts)); /*сохранение постов при перезагрузке*/
-    }
-    let posts = JSON.parse(window.localStorage.getItem('posts')) || [];  /*возвращает сохраненные посты/создает массив для постов*/
-    render();
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault(); /*блокирует перезагрузку страницы*/ 
-      console.log(event) 
-      let d = new Date();    //данные для даты
-      let currDate = d.getDate();
-      let currMonth = d.getMonth() + 1;
-      let currYear = d.getFullYear();
-      let currHours = d.getHours();
-      let currMinutes = d.getMinutes();
-      let a = ( currHours + ":" + currMinutes + " " + currDate + "-" + currMonth + "-" + currYear); //конец данных для даты
-
-      let number = getRandomInt(1,10); /*вызов функции рандомных чисел*/
-      let message = textarea.value;
-      randomColorMassage(number); /*вызов функции подбора цвета под рандомное число*/
-      posts.push( { 
-        message: message,
-        ts: a,
-        color: color2
-    })          /* пушит текст/дату/цвет в объект массива постов*/
-
-      updatePostsInLS(posts); /*вызов функции сохранения постов при перезагрузке*/
-      form.reset();     /*обновляет поле ввода*/
-      updateCounter(0);   /*обновляет счетчик*/
-      render();
-      disabledButton(textarea.value.length);           /*обновляет форматирование массива постов*/
-    })
-
-   
-     function disabledButton(value2) {  /*функция для блокировки/разблокировки кпнопки*/
-      
-      if ( value2 == 0 ) {                           //блокирует кнопку
-        button.setAttribute('Disabled', 'disabled')
-    }
-      else if ( value2 >= 270 ) {            //блокирует кнопку и делает красным счетчик
-             
-        button.setAttribute('Disabled', 'disable')
-        counter.setAttribute('Style', 'color:#ff0000')
-    }
-      else if ( value2 < 270 ) {             //разблокирует кнопку и убирает цвет счетчика
+	<main>
+		<section class="wrapper">
+		  <form class="form">
+		       <section id="textCounter" class="textarea__form">
+		          <textarea id="message" name="tweet" rows="5" placeholder="What do you think?" cols="70" rows="12" ></textarea>
+		          <section class="about__form">
+		      	      <div id="length" class="length__flex"> 
+		                 <p>Length: <span id="counter">0</span></p>
+		              </div>
+		              <div class="button">
+		                 <button id="button2" class="btn" type="submit" disabled="disabled">Tweet</button>
+		              </div>
+		          </section>
+		        </section>
+		     <div class="border__list">
+		        <ul id="tweets-list"></ul>
+		     </div>
+		  </form>
+		</section>
+	</main>
   
-        button.removeAttribute('Disabled')
-        counter.removeAttribute('Style')
-    }   
-      else if ( value2 !== 0 ) {             //разблокирует кнопку
-        button.removeAttribute('Disabled')
-    }
-         }
-
-    function render() {        /*форматирование объекта в массиве постов + подтягивание в сообщение цвет и дату*/
-      let html = posts
-        .map(object => '<li style="color: ' + object.color + ';">' + object.message + '. ' + object.ts + '</li>')   //включил дату в сообщение
-        .join('')
-      list.innerHTML = html;
-    }
-
-    function updateCounter(value) {
-      counter.textContent = value; /*вставляет количество символов в html*/
-    } 
-
-    function randomColorMassage (colorNumber) {    //функция рандомных цветов для сообщений
-      if (colorNumber == 2 ) {
-         color2 = 'red';
-      } 
-      else if (colorNumber == 3) {
-        color2 = 'blue';
-      } 
-      else if (colorNumber == 4) {
-        color2 = 'aqua';
-      } 
-      else if (colorNumber == 5) {
-        color2 = 'green';
-      }
-      else if (colorNumber == 6) {
-        color2 = 'gold';
-      }
-      else if (colorNumber == 7) {
-        color2 = 'pink';
-      } 
-      else if (colorNumber == 8) {
-        color2 = 'orangered';
-      }
-      else if (colorNumber == 9) {
-        color2 = 'purple';
-      }
-    }
-    function getRandomInt(min, max) {      //функция рандомных чисел для цветов
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    } 
-  </script>
-
+  <script src="script.js"></script>
 </body>
 
 </html>

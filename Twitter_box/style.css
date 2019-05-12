@@ -1,0 +1,68 @@
+:root {
+    --font-fam: 'Indie Flower', cursive;
+  }
+button{
+	padding: 0;
+	border: none;
+	font: inherit;
+	color: inherit;
+	background-color: transparent;
+	cursor: pointer;
+}
+main{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+main .about__form{
+	display: flex;
+	font-family: var(--font-fam);
+	margin-bottom: 0px;
+}
+.wrapper{
+    width: 76%;
+	margin: 0 auto;
+}
+.form{
+	border: solid;
+	margin-right: 50%; 
+	padding: 30px;
+    font-family: var(--font-fam);
+}
+.textarea__form{
+	margin-bottom: 0px;
+}
+textarea{
+	width: 100%;
+	height: 160px;
+	margin-bottom: 0;
+	border: 1.5px solid;
+}
+
+.button{
+	width: 100%;
+	text-align: right;
+	margin-top: 10px;
+	font-family: var(--font-fam);
+}
+.length__flex{
+	width: 100%;
+	text-align: left;
+}
+.btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    border: solid 1px transparent;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+    color: #fff;
+    background-color: #000;
+}
+
+#message {
+   font-family: var(--font-fam);
+}
+#length {
+   font-family: var(--font-fam);
+}
