@@ -1,0 +1,10 @@
+In this task, I performed such items:
+
+    - Create function sortByYear that accepts films array and returns array sorted by year
+    - Create function filterByYears that has three parametrs (array, minYear, maxYear) but only first one is required. If we only pass array it just returns it. If we pass second parameter it filters it by minimum release year, if we pass min and max it filters between these two years. Also we can pass (array, null, 2000) that should return all films before 2000.
+    - Create function getAmountByGenres that calculates how many films of each genre are in the array and returns an object like { drama: 5, comedy: 10, ... }
+    - Create function getTotalDuration that returns total amount of films duration
+    - Create function getTotalCommentsByFilm that takes a second parameter as a film id and returns total amount of comments by film
+    - Create function getCommentsByAuthorId that takes second parameter as authorId and returns an array of comments by suggested author
+    - Create function getRatingByFilmId, second parameter is filmId. Returns average rating with one number after point
+    - Create function sortByRating that returns the same array of films sorted by rating in descending order
