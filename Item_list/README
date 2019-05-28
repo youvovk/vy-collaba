@@ -1,0 +1,5 @@
+In this task, I performed such items:
+
+  - Click on Add new item button should append a new item to the end of the list
+  - Click on X removes current item
+  - Show amount of items under the list
