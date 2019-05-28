@@ -1,0 +1,14 @@
+In this task, I performed such items:
+
+   - Create layout with textarea and button
+   - If textarea is empty, placeholder should be "What's happening?"
+   - Placeholder disappears as soon as you start typing
+   - Counter under the textarea shows the length of a message
+   - When you submit the form by pressing the "Tweet" button, message shows up below and textarea becomes empty
+
+   - Submit button should be disabled while message is empty (whitespace is not counted)
+   - When the length of a message is more than 270, disable submit button and make the counter red
+   - Show date and time near each message in format HH:MM DD-MM-YYYY
+   - Set the random color of each message in the list
+   - Make this box look fancy
+   - Save messages in localStorage to make them available after page reload
